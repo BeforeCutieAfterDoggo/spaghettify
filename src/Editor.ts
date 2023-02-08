@@ -11,7 +11,7 @@ export interface IEditor {
   showErrorMessage: (message: string) => void;
   getCurrentFileExtension: () => string;
   getHighlightedText: () => string;
-  replaceSelection: (text: string) => void;
+  replaceSelection: (text: string, selectionCache?: vscode.Selection) => void;
   getSecret: (key: string) => Promise<string | undefined>;
   setSecret: (key: string, value: string) => void;
   getConfigValue: (key: string) => any;
@@ -84,10 +84,11 @@ export class Editor implements IEditor {
     return "";
   }
 
-  replaceSelection(text: string): void {
+  replaceSelection(text: string, selectionCache?: vscode.Selection): void {
     const editor = vscode.window.activeTextEditor;
     if (editor != null) {
-      const selection = editor.selection;
+      const selection = selectionCache ?? editor.selection;
+      console.log("sss", selection);
       if (!selection.isEmpty) {
         editor.edit((editBuilder) => {
           editBuilder.replace(selection, text);

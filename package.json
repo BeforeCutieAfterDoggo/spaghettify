@@ -38,6 +38,26 @@
         "title": "Spaghettify - Obscure Code"
       },
       {
+        "command": "spaghettify.addSillyComments",
+        "title": "Spaghettify - Add Silly Comments"
+      },
+      {
+        "command": "spaghettify.documentWithEmoji",
+        "title": "Spaghettify - Document With Emoji"
+      },
+      {
+        "command": "spaghettify.overlyDescriptiveNames",
+        "title": "Spaghettify - Overly Descriptive Names"
+      },
+      {
+        "command": "spaghettify.randomWhitespace",
+        "title": "Spaghettify - Random Whitespace"
+      },
+      {
+        "command": "spaghettify.fancyDocstring",
+        "title": "Spaghettify - Fancy Docstring"
+      },
+      {
         "command": "spaghettify.setup",
         "title": "Spaghettify - Setup"
       }

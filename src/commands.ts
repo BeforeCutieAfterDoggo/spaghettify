@@ -1,6 +1,7 @@
 import { IEditor } from "./Editor";
-import * as vscode from "vscode";
 import { OpenAIWrapper } from "./OpenAIWrapper";
+import { fancyDocstringPrompt } from "./prompts";
+import * as vscode from "vscode";
 
 export const spaghettiCommand = async (
   editor: IEditor,
@@ -14,6 +15,31 @@ export const spaghettiCommand = async (
     editor
   );
   editor.replaceSelection(response);
+};
+
+export const fancyDocstring = async (
+  editor: IEditor,
+  openAiApi: OpenAIWrapper
+) => {
+  // cache selection for replacement
+  const e = vscode.window.activeTextEditor;
+  if (e == null) {
+    return;
+  }
+  const selectionCache = e.selection;
+  const selection = editor.getHighlightedText();
+  const style = await editor.getUserInput(
+    "Enter your style",
+    "Rap Lyrics, Dirty Limeric, Fast Talkin' Gangster, etc...",
+    "Invalid style",
+    false
+  );
+  const promptToRun = fancyDocstringPrompt(selection, style);
+  const response = await openAiApi.makeRequestWithLoadingIndicator(
+    promptToRun,
+    editor
+  );
+  editor.replaceSelection(response, selectionCache);
 };
 
 const validateInput = (value: string | undefined): boolean => {

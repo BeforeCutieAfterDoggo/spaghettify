@@ -41,7 +41,7 @@ export class OpenAIWrapper implements IOpenAIWrapper {
     const openai = new OpenAIApi(config);
     const response = await openai.createCompletion({
       prompt: text,
-      max_tokens: 500,
+      max_tokens: 1200,
       temperature: 0.5,
       model: "text-davinci-003",
       stop: ["```"],

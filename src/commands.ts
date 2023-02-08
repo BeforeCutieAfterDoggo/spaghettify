@@ -3,24 +3,41 @@ import { OpenAIWrapper } from "./OpenAIWrapper";
 import { fancyDocstringPrompt } from "./prompts";
 import * as vscode from "vscode";
 
+const checkForApiKey = (editor: IEditor): boolean => {
+  const apiKey = editor.getSecret("openai-api-key");
+  if (!apiKey) {
+    editor.showErrorMessage(
+      "You must provide an OpenAI API Key. Run 'Spaghettify - Setup' command."
+    );
+    return false;
+  }
+  return true;
+};
+
 export const spaghettiCommand = async (
   editor: IEditor,
   openAiApi: OpenAIWrapper,
   prompt: (input: string) => string
 ) => {
+  if (!checkForApiKey(editor)) return;
   const selection = editor.getHighlightedText();
-  const promptToRun = prompt(selection);
+  const promptToRun = prompt(selection) + editor.getFileLanguage();
   const response = await openAiApi.makeRequestWithLoadingIndicator(
     promptToRun,
     editor
   );
-  editor.replaceSelection(response);
+  if (!response) {
+    editor.showErrorMessage("Something went wrong.");
+    return;
+  }
+  editor.replaceSelection(response.trim());
 };
 
 export const fancyDocstring = async (
   editor: IEditor,
   openAiApi: OpenAIWrapper
 ) => {
+  if (!checkForApiKey(editor)) return;
   // cache selection for replacement
   const e = vscode.window.activeTextEditor;
   if (e == null) {
@@ -30,16 +47,25 @@ export const fancyDocstring = async (
   const selection = editor.getHighlightedText();
   const style = await editor.getUserInput(
     "Enter your style",
-    "Rap Lyrics, Dirty Limeric, Fast Talkin' Gangster, etc...",
+    "Rap Lyrics, Dirty Limeric, Fast Talkin' 1930s Gangster, etc...",
     "Invalid style",
     false
   );
-  const promptToRun = fancyDocstringPrompt(selection, style);
+  if (!style) {
+    editor.showErrorMessage("Invalid style");
+    return;
+  }
+  const promptToRun =
+    fancyDocstringPrompt(selection, style) + editor.getFileLanguage();
   const response = await openAiApi.makeRequestWithLoadingIndicator(
     promptToRun,
     editor
   );
-  editor.replaceSelection(response, selectionCache);
+  if (!response) {
+    editor.showErrorMessage("Something went wrong.");
+    return;
+  }
+  editor.replaceSelection(response.trim(), selectionCache);
 };
 
 const validateInput = (value: string | undefined): boolean => {

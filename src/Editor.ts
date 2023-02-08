@@ -15,6 +15,7 @@ export interface IEditor {
   getSecret: (key: string) => Promise<string | undefined>;
   setSecret: (key: string, value: string) => void;
   getConfigValue: (key: string) => any;
+  getFileLanguage: () => string;
 }
 
 export class Editor implements IEditor {
@@ -88,7 +89,6 @@ export class Editor implements IEditor {
     const editor = vscode.window.activeTextEditor;
     if (editor != null) {
       const selection = selectionCache ?? editor.selection;
-      console.log("sss", selection);
       if (!selection.isEmpty) {
         editor.edit((editBuilder) => {
           editBuilder.replace(selection, text);
@@ -108,5 +108,13 @@ export class Editor implements IEditor {
 
   getConfigValue(key: string): any {
     return vscode.workspace.getConfiguration("spaghettify").get(key);
+  }
+
+  getFileLanguage(): string {
+    const editor = vscode.window.activeTextEditor;
+    if (editor != null) {
+      return editor.document.languageId;
+    }
+    return "";
   }
 }

@@ -1,24 +1,17 @@
 {
-  "publisher": "antfu",
-  "name": "ext-name",
-  "displayName": "ext-name",
-  "version": "0.0.0",
+  "publisher": "BCAD",
+  "name": "spaghettify",
+  "displayName": "Spaghettify",
+  "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@7.8.0",
   "description": "",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "author": "BCAD <hello@bcad.one>",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/ext-name#readme",
+  "homepage": "https://github.com/beforecutieafterdoggo/spaghettify#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/antfu/ext-name"
-  },
-  "bugs": {
-    "url": "https://github.com/antfu/ext-name/issues"
-  },
-  "sponsor": {
-    "url": "https://github.com/sponsors/antfu"
+    "url": "https://github.com/beforecutieafterdoggo/spaghettify.git"
   },
   "categories": [
     "Other"
@@ -34,6 +27,32 @@
   "activationEvents": [
     "onStartupFinished"
   ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "spaghettify.introduceBug",
+        "title": "Spaghettify - Introduce Bug"
+      },
+      {
+        "command": "spaghettify.obscureCode",
+        "title": "Spaghettify - Obscure Code"
+      },
+      {
+        "command": "spaghettify.setup",
+        "title": "Spaghettify - Setup"
+      }
+    ]
+  },
+  "configuration": {
+    "type": "object",
+    "properties": {
+      "spaghettify.apiKey": {
+        "type": "string",
+        "default": "",
+        "description": "OpenAI API Key"
+      }
+    }
+  },
   "scripts": {
     "build": "tsup src/index.ts --external vscode",
     "dev": "nr build --watch",
@@ -60,5 +79,8 @@
     "vite": "^3.0.4",
     "vitest": "^0.21.0",
     "vsce": "^2.10.0"
+  },
+  "dependencies": {
+    "openai": "^3.1.0"
   }
 }

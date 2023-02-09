@@ -17,7 +17,7 @@
     "Other"
   ],
   "main": "./dist/index.js",
-  "icon": "res/icon.png",
+  "icon": "icon.png",
   "files": [
     "dist"
   ],
@@ -62,16 +62,6 @@
         "title": "Spaghettify - Setup"
       }
     ]
-  },
-  "configuration": {
-    "type": "object",
-    "properties": {
-      "spaghettify.apiKey": {
-        "type": "string",
-        "default": "",
-        "description": "OpenAI API Key"
-      }
-    }
   },
   "scripts": {
     "build": "tsup src/index.ts --external vscode",

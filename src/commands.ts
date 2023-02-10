@@ -21,6 +21,12 @@ export const spaghettiCommand = async (
 ) => {
   if (!checkForApiKey(editor)) return;
   const selection = editor.getHighlightedText();
+  if (selection.length === 0) {
+    editor.showErrorMessage(
+      "🍝 Nothing is selected. Highlight some code to Spaghettify. 🍝"
+    );
+    return;
+  }
   const promptToRun = prompt(selection) + editor.getFileLanguage();
   const response = await openAiApi.makeRequestWithLoadingIndicator(
     promptToRun,
@@ -45,6 +51,12 @@ export const fancyDocstring = async (
   }
   const selectionCache = e.selection;
   const selection = editor.getHighlightedText();
+  if (selection.length === 0) {
+    editor.showErrorMessage(
+      "🍝 Nothing is selected. Highlight some code to Spaghettify. 🍝"
+    );
+    return;
+  }
   const style = await editor.getUserInput(
     "Enter your style",
     "Rap Lyrics, Dirty Limeric, Fast Talkin' 1930s Gangster, etc...",

@@ -2,7 +2,7 @@
 
 Spaghettify is a Visual Studio Code extension that uses the power of AI to make your code worse. 🍝
 
-![Spaghettify](doc.png)
+![Spaghettify](doc2.png)
 
 ## How to Use
 

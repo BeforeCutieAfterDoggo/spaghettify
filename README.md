@@ -6,6 +6,6 @@ Spaghettify is a Visual Studio Code extension that uses the power of AI to make 
 
 ## How to Use
 
-First, run the `Spaghettify - Setup` command. This will prompt you for an [OpenAI API Key](beta.openai.com/). Input your API key.
+First, run the `Spaghettify - Setup` command. This will prompt you for an [OpenAI API Key](https://openai.com/api/). Input your API key.
 
 Highlight the code you want to Spaghettify and run any of the Spaghettify magic brushes to automagically make your code worse. It's that easy!
